@@ -1,0 +1,71 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+.textarea-class {
+    margin-top: 100px;
+    margin-left: 100px; 
+    width: 745px;
+    height: 200px;
+    resize: none;
+    box-sizing: border-box;
+    padding-left: 10px;
+    padding-top: 10px;
+}
+
+.keyboard-class {
+    display: flex;
+    flex-wrap: wrap;
+    width: 745px;
+    height: auto;
+    margin-left: 100px;
+    list-style: none;
+    background-color: silver;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.btn-class {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    height: 40px;
+    margin: 5px;
+    background-color: black;
+    color: #fff;
+    font-size: 14px;
+    cursor: pointer;
+    border-radius: 4px;  
+}
+
+.btn-class:hover {
+    background-color: rgb(41, 40, 40);
+}
+
+.Backspace-class,
+.Tab-class,
+.Ctrl-class {
+    width: 80px;
+}
+
+.CapsLK-class {
+    width: 90px;
+}
+
+.Enter-class {
+    width: 80px;
+}
+
+li:nth-child(42) {
+    width: 130px;
+}
+
+.Space-class {
+    width: 250px;
+}
+
+.press-btn {
+    border-radius: 15px;  
+}
+
