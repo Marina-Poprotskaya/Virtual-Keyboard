@@ -66,6 +66,11 @@ li:nth-child(42) {
 }
 
 .press-btn {
-    border-radius: 15px;  
+    border-radius: 15px;
+    font-weight: bold; 
+}
+
+.upper {
+    text-transform: uppercase;
 }
 
