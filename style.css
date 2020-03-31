@@ -43,34 +43,35 @@
     background-color: rgb(41, 40, 40);
 }
 
-.Backspace-class,
-.Tab-class,
-.Ctrl-class {
+#Backspace,
+#Tab,
+#ControlRight,
+#ControlLeft  {
     width: 80px;
 }
 
-.CapsLK-class {
+#CapsLock {
     width: 90px;
 }
 
-.Enter-class {
+#Enter {
     width: 80px;
 }
 
-li:nth-child(42) {
-    width: 130px;
+#Space {
+    width: 250px;
 }
 
-.Space-class {
-    width: 250px;
+#ShiftLeft {
+  width: 130px; 
 }
 
 .press-btn {
     border-radius: 15px;
     font-weight: bold; 
+    color: yellow;
 }
 
 .upper {
     text-transform: uppercase;
 }
-
