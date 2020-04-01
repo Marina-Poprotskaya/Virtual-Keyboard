@@ -77,18 +77,29 @@ function showLetters() {
     } else if (text === 'Enter') {
       textareaField.value += '\r\n';
     } else if (text === 'Tab') {
-      textareaField.value += '    ';
+      textareaField.value += '\t';
     } else if (text === 'CapsLock') {
       if (caps) {
         event.target.classList.remove('caps');
         caps = false;
-        j = 0;
-        fillButtons();
+        if (j === 2) {
+          j = 0;
+          fillButtons();
+        }
+        if (j === 3) {
+          j = 1;
+          fillButtons();
+        }
       } else {
         event.target.classList.add('caps');
         caps = true;
-        j = 2;
-        fillButtons();
+        if (j === 0) {
+          j = 2;
+          fillButtons();
+        } else if (j === 1) {
+          j = 3;
+          fillButtons();
+        }
       }
     } else if (text.length === 1) {
       textareaField.value += text;
@@ -119,6 +130,7 @@ function showButton() {
 }
 showButton();
 
+
 // Для CapsLock на реальной клавиатуре
 window.addEventListener('keydown', (event) => {
   const li = document.getElementById(event.code);
@@ -126,38 +138,71 @@ window.addEventListener('keydown', (event) => {
     if (caps === true) {
       caps = false;
       li.classList.remove('caps');
-      j = 0;
-      fillButtons();
+      if (j === 2) {
+        j = 0;
+        fillButtons();
+      }
+      if (j === 3) {
+        j = 1;
+        fillButtons();
+      }
     } else {
       li.classList.add('caps');
       caps = true;
+      if (j === 0) {
+        j = 2;
+        fillButtons();
+      } else if (j === 1) {
+        j = 3;
+        fillButtons();
+      }
+    }
+  }
+});
+
+
+// Для Shift на реальной клавиатуре
+window.addEventListener('keydown', (event) => {
+  if (event.code === 'ShiftLeft') {
+    if (j === 0) {
       j = 2;
+      fillButtons();
+    } else if (j === 1) {
+      j = 3;
+      fillButtons();
+    }
+  }
+});
+window.addEventListener('keyup', (event) => {
+  if (event.code === 'ShiftLeft') {
+    if (j === 2) {
+      j = 0;
+      fillButtons();
+    } else if (j === 3) {
+      j = 1;
       fillButtons();
     }
   }
 });
 
-// Для Shift на реальной клавиатуре
-window.addEventListener('keydown', (event) => {
-  if (event.code === 'ShiftLeft') {
-    j = 2;
-    fillButtons();
-  }
-});
-window.addEventListener('keyup', (event) => {
-  if (event.code === 'ShiftLeft') {
-    j = 0;
-    fillButtons();
-  }
-});
 
-// Переключать язык
+// Переключать язык на реальной клавиатуре
 let flag = false;
 window.addEventListener('keydown', (event) => {
-  if (event.code === 'ControlLeft') flag = true;
-  if (event.code === 'AltLeft' && flag) {
-    flag = false;
-    j = 1;
-    fillButtons();
+  if (event.code === 'ControlLeft' || event.code === 'ControlRight') flag = true;
+  if (event.code === 'AltLeft' || event.code === 'AltRight' && flag) {
+    if (j === 0) {
+      j = 1;
+      fillButtons();
+    } else if (j === 1) {
+      j = 0;
+      fillButtons();
+    } else if (j === 2) {
+      j = 3;
+      fillButtons();
+    } else if (j === 3) {
+      j = 2;
+      fillButtons();
+    }
   }
 });

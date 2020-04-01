@@ -21,7 +21,6 @@
     height: auto;
     margin-left: 100px;
     list-style: none;
-    background-color: silver;
     font-family: Arial, Helvetica, sans-serif;
 }
 
@@ -76,10 +75,6 @@
     box-shadow: 5px 5px 0 rgb(9, 52, 241);
     transition: ease .2s
 }
-
-/* .upper {
-    text-transform: uppercase;
-} */
 
 .caps {
     color: black;
