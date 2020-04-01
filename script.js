@@ -1,5 +1,4 @@
-
-const keyboardButtonsRU = [
+const keyboardButtons = [
   ['ё', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '-', '=', 'Backspace', 'Tab', 'й', 'ц', 'у', 'к', 'е', 'н', 'г', 'ш', 'щ', 'з', 'х', 'ъ', '/', 'CapsLock', 'ф', 'ы', 'в', 'а', 'п', 'р', 'о', 'л', 'д', 'ж', 'э', 'Enter', 'Shift', 'я', 'ч', 'с', 'м', 'и', 'т', 'ь', 'б', 'ю', '.', '&uarr;', 'Shift', 'Ctrl', 'Fn', 'Alt', 'Space', 'Alt', 'Ctrl', '&larr;', '&darr;', '&rarr;'],
   [
     '`', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '-', '=', 'Backspace', 'Tab', 'q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p', '[', ']', '|', 'CapsLock', 'a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', ';', '"', 'Enter', 'Shift', 'z', 'x', 'c', 'v', 'b', 'n', 'm', ',', '.', '/', '&uarr;', 'Shift', 'Ctrl', 'Fn', 'Alt', 'Space', 'Alt', 'Ctrl', '&larr;', '&darr;', '&rarr;'],
@@ -23,9 +22,10 @@ document.body.append(keyboardField);
 keyboardField.classList.add('keyboard-class');
 
 // Создаю кнопки клавиатуры
+// j - переменная, в которой хранится индекс нужного массива из keyboardButtons
 let j = 0;
 function makeKeyboardButtons() {
-  for (let i = 0; i < keyboardButtonsRU[j].length; i += 1) {
+  for (let i = 0; i < keyboardButtons[j].length; i += 1) {
     const buttons = document.createElement('li');
 
     buttons.classList.add('btn-class');
@@ -37,11 +37,12 @@ function makeKeyboardButtons() {
 }
 makeKeyboardButtons();
 
+// Заполняю кнопки содержимым в зависимости от выбранного массива из keyboardButtons
 const buttons = document.querySelectorAll('li');
 function fillButtons() {
-  for (let i = 0; i < keyboardButtonsRU[j].length; i += 1) {
+  for (let i = 0; i < keyboardButtons[j].length; i += 1) {
     for (let k = 0; k < buttons.length; k += 1) {
-      buttons[k].innerHTML = keyboardButtonsRU[j][i = k];
+      buttons[k].innerHTML = keyboardButtons[j][i = k];
     }
   }
 }
@@ -110,7 +111,7 @@ function showLetters() {
 showLetters();
 
 
-// Связь реальной клавиатуры с виртуальной
+// Связь реальной клавиатуры с виртуальной - реакция на нажатие
 function showButton() {
   window.addEventListener('keydown', (event) => {
     const li = document.getElementById(event.code);
@@ -131,7 +132,7 @@ function showButton() {
 showButton();
 
 
-// Для CapsLock на реальной клавиатуре
+// Функционал для CapsLock на реальной клавиатуре
 window.addEventListener('keydown', (event) => {
   const li = document.getElementById(event.code);
   if (event.code === 'CapsLock') {
@@ -161,7 +162,7 @@ window.addEventListener('keydown', (event) => {
 });
 
 
-// Для Shift на реальной клавиатуре
+// Функционал для Shift на реальной клавиатуре
 window.addEventListener('keydown', (event) => {
   if (event.code === 'ShiftLeft') {
     if (j === 0) {
@@ -186,7 +187,7 @@ window.addEventListener('keyup', (event) => {
 });
 
 
-// Переключать язык на реальной клавиатуре
+// Переключать язык на реальной клавиатуре Ctrl + Alt
 let flag = false;
 window.addEventListener('keydown', (event) => {
   if (event.code === 'ControlLeft' || event.code === 'ControlRight') flag = true;

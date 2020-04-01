@@ -4,8 +4,10 @@
 }
 
 .textarea-class {
+    display: block;
     margin-top: 100px;
-    margin-left: 100px; 
+    margin-left: auto; 
+    margin-right: auto; 
     width: 745px;
     height: 200px;
     resize: none;
@@ -19,7 +21,8 @@
     flex-wrap: wrap;
     width: 745px;
     height: auto;
-    margin-left: 100px;
+    margin-left: auto; 
+    margin-right: auto; 
     list-style: none;
     font-family: Arial, Helvetica, sans-serif;
 }
