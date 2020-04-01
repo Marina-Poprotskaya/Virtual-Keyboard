@@ -1,8 +1,12 @@
 
 const keyboardButtonsRU = [
-  ['ё', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '-', '=', 'Backspace', 'Tab', 'й', 'ц', 'у', 'к', 'е', 'н', 'г', 'ш', 'щ', 'з', 'х', 'ъ', '/', 'CapsLock', 'ф', 'ы', 'в', 'а', 'п', 'р', 'о', 'л', 'д', 'ж', 'э', 'Enter', 'Shift', 'я', 'ч', 'с', 'м', 'и', 'т', 'ь', 'б', 'ю', '.', '↑', 'Shift', 'Ctrl', 'Fn', 'Alt', 'Space', 'Alt', 'Ctrl', '←', '↓', '→'],
+  ['ё', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '-', '=', 'Backspace', 'Tab', 'й', 'ц', 'у', 'к', 'е', 'н', 'г', 'ш', 'щ', 'з', 'х', 'ъ', '/', 'CapsLock', 'ф', 'ы', 'в', 'а', 'п', 'р', 'о', 'л', 'д', 'ж', 'э', 'Enter', 'Shift', 'я', 'ч', 'с', 'м', 'и', 'т', 'ь', 'б', 'ю', '.', '&uarr;', 'Shift', 'Ctrl', 'Fn', 'Alt', 'Space', 'Alt', 'Ctrl', '&larr;', '&darr;', '&rarr;'],
   [
-    '`', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '-', '=', 'Backspace', 'Tab', 'q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p', '[', ']', '|', 'CapsLK', 'a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', ';', '"', 'Enter', 'Shift', 'z', 'x', 'c', 'v', 'b', 'n', 'm', ',', '.', '/', '&uarr;', 'Shift', 'Ctrl', 'Fn', 'Alt', 'Space', 'Alt', 'Ctrl', '&larr;', '&darr;', '&rarr;'],
+    '`', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '-', '=', 'Backspace', 'Tab', 'q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p', '[', ']', '|', 'CapsLock', 'a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', ';', '"', 'Enter', 'Shift', 'z', 'x', 'c', 'v', 'b', 'n', 'm', ',', '.', '/', '&uarr;', 'Shift', 'Ctrl', 'Fn', 'Alt', 'Space', 'Alt', 'Ctrl', '&larr;', '&darr;', '&rarr;'],
+  [
+    'Ё', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '-', '=', 'Backspace', 'Tab', 'Й', 'Ц', 'У', 'К', 'Е', 'Н', 'Г', 'Ш', 'Щ', 'З', 'Х', 'Ъ', '|', 'CapsLock', 'Ф', 'Ы', 'В', 'А', 'П', 'Р', 'О', 'Л', 'Д', 'Ж', 'Э', 'Enter', 'Shift', 'Я', 'Ч', 'С', 'М', 'И', 'Т', 'Ь', 'Б', 'Ю', '.', '&uarr;', 'Shift', 'Ctrl', 'Fn', 'Alt', 'Space', 'Alt', 'Ctrl', '&larr;', '&darr;', '&rarr;'],
+  [
+    '`', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '-', '=', 'Backspace', 'Tab', 'Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P', '[', ']', '|', 'CapsLock', 'A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L', ';', '"', 'Enter', 'Shift', 'Z', 'X', 'C', 'V', 'B', 'N', 'M', ',', '.', '/', '&uarr;', 'Shift', 'Ctrl', 'Fn', 'Alt', 'Space', 'Alt', 'Ctrl', '&larr;', '&darr;', '&rarr;'],
 ];
 
 const keyCodes = ['Backquote', 'Digit1', 'Digit2', 'Digit3', 'Digit4', 'Digit5', 'Digit6', 'Digit7', 'Digit8', 'Digit9', 'Digit0', 'Minus', 'Equal', 'Backspace', 'Tab', 'KeyQ', 'KeyW', 'KeyE', 'KeyR', 'KeyT', 'KeyY', 'KeyU', 'KeyI', 'KeyO', 'KeyP', 'BracketLeft', 'BracketRight', 'Backslash', 'CapsLock', 'KeyA', 'KeyS', 'KeyD', 'KeyF', 'KeyG', 'KeyH', 'KeyJ', 'KeyK', 'KeyL', 'Semicolon', 'Quote', 'Enter', 'ShiftLeft', 'KeyZ', 'KeyX', 'KeyC', 'KeyV', 'KeyB', 'KeyN', 'KeyM', 'Comma', 'Period', 'Slash', 'ArrowUp', 'ShiftRight', 'ControlLeft', 'WakeUp', 'AltLeft', 'Space', 'AltRight', 'ControlRight', 'ArrowLeft', 'ArrowDown', 'ArrowRight'];
@@ -18,35 +22,30 @@ const keyboardField = document.createElement('ul');
 document.body.append(keyboardField);
 keyboardField.classList.add('keyboard-class');
 
-// Создаю кнопки клавиатуру
-// function makeKeyboard() {
-//   for (let i = 0; i < keyboardButtonsRU.length; i += 1) {
-//     const buttons = document.createElement('li');
-
-//     buttons.classList.add('btn-class');
-//     buttons.innerHTML = keyboardButtonsRU[i];
-
-//     buttons.setAttribute('id', keyCodes[i]);
-
-//     keyboardField.append(buttons);
-//   }
-// }
-// makeKeyboard();
-
+// Создаю кнопки клавиатуры
 let j = 0;
-function makeKeyboard() {
+function makeKeyboardButtons() {
   for (let i = 0; i < keyboardButtonsRU[j].length; i += 1) {
     const buttons = document.createElement('li');
 
     buttons.classList.add('btn-class');
-    buttons.innerHTML = keyboardButtonsRU[j][i];
 
     buttons.setAttribute('id', keyCodes[i]);
 
     keyboardField.append(buttons);
   }
 }
-makeKeyboard();
+makeKeyboardButtons();
+
+const buttons = document.querySelectorAll('li');
+function fillButtons() {
+  for (let i = 0; i < keyboardButtonsRU[j].length; i += 1) {
+    for (let k = 0; k < buttons.length; k += 1) {
+      buttons[k].innerHTML = keyboardButtonsRU[j][i = k];
+    }
+  }
+}
+fillButtons();
 
 // Делаю интерактивность кнопок
 keyboardField.addEventListener('mousedown', (event) => {
@@ -65,6 +64,7 @@ keyboardField.addEventListener('mouseup', (event) => {
 });
 
 // Выводим буквы на экран
+let caps = false;
 function showLetters() {
   textareaField.value = '';
   keyboardField.addEventListener('click', (event) => {
@@ -79,12 +79,19 @@ function showLetters() {
     } else if (text === 'Tab') {
       textareaField.value += '    ';
     } else if (text === 'CapsLock') {
-      document.querySelectorAll('li').forEach((el) => {
-        if (el.innerHTML.length === 1) {
-          el.classList.toggle('upper');
-        }
-      });
-      // keyboardButtonsRU.toUpperCase();
+      if (caps) {
+        console.log('Капс НЕ нажат');
+        event.target.classList.remove('caps');
+        j = 0;
+        fillButtons();
+        caps = false;
+      } else {
+        console.log('Капс нажат');
+        event.target.classList.add('caps');
+        j = 2;
+        fillButtons();
+        caps = true;
+      }
     } else if (text.length === 1) {
       textareaField.value += text;
     }
@@ -114,24 +121,39 @@ function showButton() {
 }
 showButton();
 
-// Для CapsLock
+// Для CapsLock на реальной клавиатуре
 window.addEventListener('keydown', (event) => {
+  const li = document.getElementById(event.code);
   if (event.code === 'CapsLock') {
-    document.querySelectorAll('li').forEach((el) => {
-      if (el.innerHTML.length === 1) {
-        el.classList.toggle('upper');
-      }
-    });
+    if (caps) {
+      console.log('Капс НЕ нажат');
+      console.log(event);
+      console.log(caps);
+      li.classList.remove('caps');
+      j = 0;
+      fillButtons();
+      caps = false;
+      console.log(caps);
+    } else {
+      console.log('Капс нажат');
+      li.classList.add('caps');
+      j = 2;
+      fillButtons();
+      caps = true;
+    }
   }
 });
+
 
 // Переключать язык
 let flag = false;
 window.addEventListener('keydown', (event) => {
   if (event.code === 'ShiftLeft') flag = true;
   if (event.code === 'AltLeft' && flag) {
-    console.log('Работает');
     j = 1;
-    makeKeyboard();
+    fillButtons();
+    flag = false;
   }
 });
+
+
