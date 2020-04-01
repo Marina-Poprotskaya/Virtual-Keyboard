@@ -1,5 +1,9 @@
 
-const keyboardButtonsRU = ['ё', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '-', '=', 'Backspace', 'Tab', 'й', 'ц', 'у', 'к', 'е', 'н', 'г', 'ш', 'щ', 'з', 'х', 'ъ', '/', 'CapsLock', 'ф', 'ы', 'в', 'а', 'п', 'р', 'о', 'л', 'д', 'ж', 'э', 'Enter', 'Shift', 'я', 'ч', 'с', 'м', 'и', 'т', 'ь', 'б', 'ю', '.', '↑', 'Shift', 'Ctrl', 'Fn', 'Alt', 'Space', 'Alt', 'Ctrl', '←', '↓', '→'];
+const keyboardButtonsRU = [
+  ['ё', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '-', '=', 'Backspace', 'Tab', 'й', 'ц', 'у', 'к', 'е', 'н', 'г', 'ш', 'щ', 'з', 'х', 'ъ', '/', 'CapsLock', 'ф', 'ы', 'в', 'а', 'п', 'р', 'о', 'л', 'д', 'ж', 'э', 'Enter', 'Shift', 'я', 'ч', 'с', 'м', 'и', 'т', 'ь', 'б', 'ю', '.', '↑', 'Shift', 'Ctrl', 'Fn', 'Alt', 'Space', 'Alt', 'Ctrl', '←', '↓', '→'],
+  [
+    '`', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '-', '=', 'Backspace', 'Tab', 'q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p', '[', ']', '|', 'CapsLK', 'a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', ';', '"', 'Enter', 'Shift', 'z', 'x', 'c', 'v', 'b', 'n', 'm', ',', '.', '/', '&uarr;', 'Shift', 'Ctrl', 'Fn', 'Alt', 'Space', 'Alt', 'Ctrl', '&larr;', '&darr;', '&rarr;'],
+];
 
 const keyCodes = ['Backquote', 'Digit1', 'Digit2', 'Digit3', 'Digit4', 'Digit5', 'Digit6', 'Digit7', 'Digit8', 'Digit9', 'Digit0', 'Minus', 'Equal', 'Backspace', 'Tab', 'KeyQ', 'KeyW', 'KeyE', 'KeyR', 'KeyT', 'KeyY', 'KeyU', 'KeyI', 'KeyO', 'KeyP', 'BracketLeft', 'BracketRight', 'Backslash', 'CapsLock', 'KeyA', 'KeyS', 'KeyD', 'KeyF', 'KeyG', 'KeyH', 'KeyJ', 'KeyK', 'KeyL', 'Semicolon', 'Quote', 'Enter', 'ShiftLeft', 'KeyZ', 'KeyX', 'KeyC', 'KeyV', 'KeyB', 'KeyN', 'KeyM', 'Comma', 'Period', 'Slash', 'ArrowUp', 'ShiftRight', 'ControlLeft', 'WakeUp', 'AltLeft', 'Space', 'AltRight', 'ControlRight', 'ArrowLeft', 'ArrowDown', 'ArrowRight'];
 
@@ -15,12 +19,27 @@ document.body.append(keyboardField);
 keyboardField.classList.add('keyboard-class');
 
 // Создаю кнопки клавиатуру
+// function makeKeyboard() {
+//   for (let i = 0; i < keyboardButtonsRU.length; i += 1) {
+//     const buttons = document.createElement('li');
+
+//     buttons.classList.add('btn-class');
+//     buttons.innerHTML = keyboardButtonsRU[i];
+
+//     buttons.setAttribute('id', keyCodes[i]);
+
+//     keyboardField.append(buttons);
+//   }
+// }
+// makeKeyboard();
+
+let j = 0;
 function makeKeyboard() {
-  for (let i = 0; i < keyboardButtonsRU.length; i += 1) {
+  for (let i = 0; i < keyboardButtonsRU[j].length; i += 1) {
     const buttons = document.createElement('li');
 
     buttons.classList.add('btn-class');
-    buttons.innerHTML = keyboardButtonsRU[i];
+    buttons.innerHTML = keyboardButtonsRU[j][i];
 
     buttons.setAttribute('id', keyCodes[i]);
 
@@ -53,8 +72,6 @@ function showLetters() {
     const text = event.target.innerHTML;
     if (text === 'Space') {
       (textareaField.value += ' ');
-    } else if (text === '←' || text === '↑' || text === '→' || text === '↓') {
-      textareaField.value += '';
     } else if (text === 'Backspace') {
       textareaField.value = textareaField.value.substr(0, textareaField.value.length - 1);
     } else if (text === 'Enter') {
@@ -67,6 +84,7 @@ function showLetters() {
           el.classList.toggle('upper');
         }
       });
+      // keyboardButtonsRU.toUpperCase();
     } else if (text.length === 1) {
       textareaField.value += text;
     }
@@ -74,6 +92,7 @@ function showLetters() {
   });
 }
 showLetters();
+
 
 // Связь реальной клавиатуры с виртуальной
 function showButton() {
@@ -106,6 +125,13 @@ window.addEventListener('keydown', (event) => {
   }
 });
 
+// Переключать язык
+let flag = false;
 window.addEventListener('keydown', (event) => {
-  console.log(event);
+  if (event.code === 'ShiftLeft') flag = true;
+  if (event.code === 'AltLeft' && flag) {
+    console.log('Работает');
+    j = 1;
+    makeKeyboard();
+  }
 });
