@@ -10,6 +10,13 @@ const keyboardButtons = [
 
 const keyCodes = ['Backquote', 'Digit1', 'Digit2', 'Digit3', 'Digit4', 'Digit5', 'Digit6', 'Digit7', 'Digit8', 'Digit9', 'Digit0', 'Minus', 'Equal', 'Backspace', 'Tab', 'KeyQ', 'KeyW', 'KeyE', 'KeyR', 'KeyT', 'KeyY', 'KeyU', 'KeyI', 'KeyO', 'KeyP', 'BracketLeft', 'BracketRight', 'Backslash', 'CapsLock', 'KeyA', 'KeyS', 'KeyD', 'KeyF', 'KeyG', 'KeyH', 'KeyJ', 'KeyK', 'KeyL', 'Semicolon', 'Quote', 'Enter', 'ShiftLeft', 'KeyZ', 'KeyX', 'KeyC', 'KeyV', 'KeyB', 'KeyN', 'KeyM', 'Comma', 'Period', 'Slash', 'ArrowUp', 'ShiftRight', 'ControlLeft', 'WakeUp', 'AltLeft', 'Space', 'AltRight', 'ControlRight', 'ArrowLeft', 'ArrowDown', 'ArrowRight'];
 
+
+// Создаю NOTICE
+const noticeDiv = document.createElement('div');
+noticeDiv.classList.add('notice');
+noticeDiv.innerHTML = '<p><span>Notice!</span><br/>1. Клавиатура создана в ОС WIndows<br/>2. Комбинация клавиш для смены языка на реальной клавиатуре - Ctrl + Alt<br/>3. Клавиша для смены языка на виртуальной клавиатуре - Alt</p>';
+document.body.append(noticeDiv);
+
 // Создаю поле для ввода
 const textareaField = document.createElement('textarea');
 document.body.append(textareaField);
@@ -48,6 +55,19 @@ function fillButtons() {
 }
 fillButtons();
 
+// Создаю кнопку для очистки поля textarea
+const buttonClear = document.createElement('button');
+buttonClear.classList.add('button_clear');
+buttonClear.innerHTML = 'Clear textarea';
+document.body.append(buttonClear);
+
+// Функционал для кнопки buttonClear
+buttonClear.addEventListener('click', () => {
+  textareaField.value = '';
+  textareaField.focus();
+});
+
+
 // Делаю интерактивность кнопок
 keyboardField.addEventListener('mousedown', (event) => {
   const { target } = event;
@@ -79,6 +99,21 @@ function showLetters() {
       textareaField.value += '\r\n';
     } else if (text === 'Tab') {
       textareaField.value += '\t';
+      // Смена языка на виртальной клавиатуре на Alt
+    } else if (text === 'Alt') {
+      if (j === 0) {
+        j = 1;
+        fillButtons();
+      } else if (j === 1) {
+        j = 0;
+        fillButtons();
+      } else if (j === 2) {
+        j = 3;
+        fillButtons();
+      } else if (j === 3) {
+        j = 2;
+        fillButtons();
+      }
     } else if (text === 'CapsLock') {
       if (caps) {
         event.target.classList.remove('caps');
@@ -191,7 +226,7 @@ window.addEventListener('keyup', (event) => {
 let flag = false;
 window.addEventListener('keydown', (event) => {
   if (event.code === 'ControlLeft' || event.code === 'ControlRight') flag = true;
-  if (event.code === 'AltLeft' || event.code === 'AltRight' && flag) {
+  if ((event.code === 'AltLeft' || event.code === 'AltRight') && flag) {
     if (j === 0) {
       j = 1;
       fillButtons();
