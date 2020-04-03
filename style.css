@@ -118,7 +118,12 @@
 .button_clear:hover {
     font-size: 28px;
     box-shadow: 5px 5px 0 rgb(114, 111, 111);
-    transition: ease-in-out .3s;
+    transition: ease-in-out .4s;
+}
+
+.button_clear:active {
+    font-size: 26px;
+    box-shadow: 5px 5px 0 rgb(82, 79, 79);
 }
 
 span {
