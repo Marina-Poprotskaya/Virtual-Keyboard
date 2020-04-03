@@ -84,13 +84,11 @@ keyboardField.addEventListener('mouseup', (event) => {
 });
 
 // Функциональность для кнопки Delete
-const start = textareaField.selectionStart;
-const end = textareaField.selectionEnd;
 function DelBtn() {
-  if (start === end) {
-    textareaField.setRangeText('', start, end + 1, 'end');
-  } else if (start !== end) {
-    textareaField.setRangeText('', start, end, 'end');
+  if (textareaField.selectionStart === textareaField.selectionEnd) {
+    textareaField.setRangeText('', textareaField.selectionStart, textareaField.selectionEnd + 1, 'end');
+  } else if (textareaField.selectionStart !== textareaField.selectionEnd) {
+    textareaField.setRangeText('', textareaField.selectionStart, textareaField.selectionEnd, 'end');
   }
 }
 
