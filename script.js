@@ -11,30 +11,29 @@ const keyboardButtons = [
 const keyCodes = ['Backquote', 'Digit1', 'Digit2', 'Digit3', 'Digit4', 'Digit5', 'Digit6', 'Digit7', 'Digit8', 'Digit9', 'Digit0', 'Minus', 'Equal', 'Backspace', 'Tab', 'KeyQ', 'KeyW', 'KeyE', 'KeyR', 'KeyT', 'KeyY', 'KeyU', 'KeyI', 'KeyO', 'KeyP', 'BracketLeft', 'BracketRight', 'Backslash', 'Delete', 'CapsLock', 'KeyA', 'KeyS', 'KeyD', 'KeyF', 'KeyG', 'KeyH', 'KeyJ', 'KeyK', 'KeyL', 'Semicolon', 'Quote', 'Enter', 'ShiftLeft', 'KeyZ', 'KeyX', 'KeyC', 'KeyV', 'KeyB', 'KeyN', 'KeyM', 'Comma', 'Period', 'Slash', 'ArrowUp', 'ShiftRight', 'ControlLeft', 'WakeUp', 'AltLeft', 'Space', 'AltRight', 'ControlRight', 'ArrowLeft', 'ArrowDown', 'ArrowRight'];
 
 
-// Создаю NOTICE
+// Create NOTICE
 const noticeDiv = document.createElement('div');
 noticeDiv.classList.add('notice');
 noticeDiv.innerHTML = '<p><span>Notice!</span><br/>1. Клавиатура создана в ОС Windows<br/>2. Комбинация клавиш для смены языка на реальной клавиатуре - Ctrl + Alt<br/>3. Клавиша для смены языка на виртуальной клавиатуре - Alt</p>';
 document.body.append(noticeDiv);
 
-// Создаю поле для ввода
+// Create a textarea field
 const textareaField = document.createElement('textarea');
 document.body.append(textareaField);
 textareaField.classList.add('textarea-class');
 textareaField.focus();
 
-// Создаю каркас клавиатуры
+// Create frame of a keyboard
 const keyboardField = document.createElement('ul');
 document.body.append(keyboardField);
 keyboardField.classList.add('keyboard-class');
 
-// Создаю кнопки клавиатуры
-// j - переменная, в которой хранится индекс нужного массива из keyboardButtons
-
-let j = +localStorage.getItem('key') || 0;
+// Create keyboard's buttons
+// lang - it's a variable, which contains the index of the required array from the keyboardButtons
+let lang = +localStorage.getItem('key') || 0;
 
 function makeKeyboardButtons() {
-  for (let i = 0; i < keyboardButtons[j].length; i += 1) {
+  for (let i = 0; i < keyboardButtons[lang].length; i += 1) {
     const buttons = document.createElement('li');
 
     buttons.classList.add('btn-class');
@@ -46,30 +45,30 @@ function makeKeyboardButtons() {
 }
 makeKeyboardButtons();
 
-// Заполняю кнопки содержимым в зависимости от выбранного массива из keyboardButtons
+// Fill buttons with symbols, depending on the selected array from keyboardButtons
 const buttons = document.querySelectorAll('li');
 function fillButtons() {
-  for (let i = 0; i < keyboardButtons[j].length; i += 1) {
+  for (let i = 0; i < keyboardButtons[lang].length; i += 1) {
     for (let k = 0; k < buttons.length; k += 1) {
-      buttons[k].innerHTML = keyboardButtons[j][k];
+      buttons[k].innerHTML = keyboardButtons[lang][k];
     }
   }
 }
 fillButtons();
 
-// Создаю кнопку для очистки поля textarea
+// Create the button to clear textarea field
 const buttonClear = document.createElement('button');
 buttonClear.classList.add('button_clear');
 buttonClear.innerHTML = 'Clear textarea';
 document.body.append(buttonClear);
 
-// Функционал для кнопки buttonClear
+// Functionality for the button buttonClear
 buttonClear.addEventListener('click', () => {
   textareaField.value = '';
   textareaField.focus();
 });
 
-// Делаю интерактивность кнопок
+// Make buttons interactivity
 keyboardField.addEventListener('mousedown', (event) => {
   const { target } = event;
   if (target.tagName !== 'LI') return;
@@ -85,7 +84,7 @@ keyboardField.addEventListener('mouseup', (event) => {
   target.classList.remove('press-btn');
 });
 
-// Функциональность для кнопки Delete
+// Functionality for the Delete button
 function DelBtn() {
   if (textareaField.selectionStart === textareaField.selectionEnd) {
     textareaField.setRangeText('', textareaField.selectionStart, textareaField.selectionEnd + 1, 'end');
@@ -94,7 +93,7 @@ function DelBtn() {
   }
 }
 
-// Выводим буквы на экран
+// Display letters on the screen
 let caps = false;
 function showLetters() {
   textareaField.value = '';
@@ -111,46 +110,46 @@ function showLetters() {
       DelBtn();
     } else if (text === 'Tab') {
       textareaField.value += '\t';
-      // Смена языка на виртуальной клавиатуре на Alt
+      // Change the language on the virtual keyboard by Alt
     } else if (text === 'Alt') {
-      if (j === 0) {
-        j = 1;
+      if (lang === 0) {
+        lang = 1;
         fillButtons();
-      } else if (j === 1) {
-        j = 0;
+      } else if (lang === 1) {
+        lang = 0;
         fillButtons();
-      } else if (j === 2) {
-        j = 3;
+      } else if (lang === 2) {
+        lang = 3;
         fillButtons();
-      } else if (j === 3) {
-        j = 2;
+      } else if (lang === 3) {
+        lang = 2;
         fillButtons();
       }
-      localStorage.setItem('key', j);
+      localStorage.setItem('key', lang);
     } else if (text === 'CapsLock') {
       if (caps) {
         event.target.classList.remove('caps');
         caps = false;
-        if (j === 2) {
-          j = 0;
+        if (lang === 2) {
+          lang = 0;
           fillButtons();
         }
-        if (j === 3) {
-          j = 1;
+        if (lang === 3) {
+          lang = 1;
           fillButtons();
         }
-        localStorage.setItem('key', j);
+        localStorage.setItem('key', lang);
       } else {
         event.target.classList.add('caps');
         caps = true;
-        if (j === 0) {
-          j = 2;
+        if (lang === 0) {
+          lang = 2;
           fillButtons();
-        } else if (j === 1) {
-          j = 3;
+        } else if (lang === 1) {
+          lang = 3;
           fillButtons();
         }
-        localStorage.setItem('key', j);
+        localStorage.setItem('key', lang);
       }
     } else if (text.length === 1) {
       textareaField.value += text;
@@ -161,7 +160,7 @@ function showLetters() {
 showLetters();
 
 
-// Связь реальной клавиатуры с виртуальной - реакция на нажатие
+//  The connection of a real keyboard with a virtual one - reaction to pressing
 function showButton() {
   window.addEventListener('keydown', (event) => {
     const li = document.getElementById(event.code);
@@ -182,80 +181,80 @@ function showButton() {
 showButton();
 
 
-// Функционал для CapsLock на реальной клавиатуре
+// Functionality for CapsLock button on a real keyboard
 window.addEventListener('keydown', (event) => {
   const li = document.getElementById(event.code);
   if (event.code === 'CapsLock') {
     if (caps === true) {
       caps = false;
       li.classList.remove('caps');
-      if (j === 2) {
-        j = 0;
+      if (lang === 2) {
+        lang = 0;
         fillButtons();
       }
-      if (j === 3) {
-        j = 1;
+      if (lang === 3) {
+        lang = 1;
         fillButtons();
       }
     } else {
       li.classList.add('caps');
       caps = true;
-      if (j === 0) {
-        j = 2;
+      if (lang === 0) {
+        lang = 2;
         fillButtons();
-      } else if (j === 1) {
-        j = 3;
+      } else if (lang === 1) {
+        lang = 3;
         fillButtons();
       }
     }
   }
-  localStorage.setItem('key', j);
+  localStorage.setItem('key', lang);
 });
 
 
-// Функционал для Shift на реальной клавиатуре
+// Functionality for Shift button on a real keyboard
 window.addEventListener('keydown', (event) => {
   if (event.code === 'ShiftLeft') {
-    if (j === 0) {
-      j = 2;
+    if (lang === 0) {
+      lang = 2;
       fillButtons();
-    } else if (j === 1) {
-      j = 3;
+    } else if (lang === 1) {
+      lang = 3;
       fillButtons();
     }
   }
 });
 window.addEventListener('keyup', (event) => {
   if (event.code === 'ShiftLeft') {
-    if (j === 2) {
-      j = 0;
+    if (lang === 2) {
+      lang = 0;
       fillButtons();
-    } else if (j === 3) {
-      j = 1;
+    } else if (lang === 3) {
+      lang = 1;
       fillButtons();
     }
   }
 });
 
 
-// Переключать язык на реальной клавиатуре Ctrl + Alt
+// Change the language on the real keyboard by Ctrl + Alt
 let flag = false;
 window.addEventListener('keydown', (event) => {
   if (event.code === 'ControlLeft' || event.code === 'ControlRight') flag = true;
   if ((event.code === 'AltLeft' || event.code === 'AltRight') && flag) {
-    if (j === 0) {
-      j = 1;
+    if (lang === 0) {
+      lang = 1;
       fillButtons();
-    } else if (j === 1) {
-      j = 0;
+    } else if (lang === 1) {
+      lang = 0;
       fillButtons();
-    } else if (j === 2) {
-      j = 3;
+    } else if (lang === 2) {
+      lang = 3;
       fillButtons();
-    } else if (j === 3) {
-      j = 2;
+    } else if (lang === 3) {
+      lang = 2;
       fillButtons();
     }
-    localStorage.setItem('key', j);
+    localStorage.setItem('key', lang);
   }
 });
