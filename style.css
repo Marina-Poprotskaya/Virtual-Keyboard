@@ -20,7 +20,7 @@
 .keyboard-class {
     display: flex;
     flex-wrap: wrap;
-    width: 745px;
+    width: 750px;
     height: auto;
     margin-left: auto; 
     margin-right: auto; 
@@ -41,7 +41,7 @@
     cursor: pointer;
     border-radius: 4px;  
     box-shadow: 5px 5px 0 rgb(73, 71, 71);
-
+    user-select: none;
 }
 
 .btn-class:hover {
@@ -50,10 +50,13 @@
 }
 
 #Backspace,
-#Tab,
 #ControlRight,
 #ControlLeft  {
     width: 80px;
+}
+
+#Delete {
+    width: 30px;
 }
 
 #CapsLock {
