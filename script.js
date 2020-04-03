@@ -14,7 +14,7 @@ const keyCodes = ['Backquote', 'Digit1', 'Digit2', 'Digit3', 'Digit4', 'Digit5',
 // Создаю NOTICE
 const noticeDiv = document.createElement('div');
 noticeDiv.classList.add('notice');
-noticeDiv.innerHTML = '<p><span>Notice!</span><br/>1. Клавиатура создана в ОС WIndows<br/>2. Комбинация клавиш для смены языка на реальной клавиатуре - Ctrl + Alt<br/>3. Клавиша для смены языка на виртуальной клавиатуре - Alt</p>';
+noticeDiv.innerHTML = '<p><span>Notice!</span><br/>1. Клавиатура создана в ОС Windows<br/>2. Комбинация клавиш для смены языка на реальной клавиатуре - Ctrl + Alt<br/>3. Клавиша для смены языка на виртуальной клавиатуре - Alt</p>';
 document.body.append(noticeDiv);
 
 // Создаю поле для ввода
@@ -30,7 +30,9 @@ keyboardField.classList.add('keyboard-class');
 
 // Создаю кнопки клавиатуры
 // j - переменная, в которой хранится индекс нужного массива из keyboardButtons
-let j = 0;
+
+let j = +localStorage.getItem('key') || 0;
+
 function makeKeyboardButtons() {
   for (let i = 0; i < keyboardButtons[j].length; i += 1) {
     const buttons = document.createElement('li');
@@ -49,7 +51,7 @@ const buttons = document.querySelectorAll('li');
 function fillButtons() {
   for (let i = 0; i < keyboardButtons[j].length; i += 1) {
     for (let k = 0; k < buttons.length; k += 1) {
-      buttons[k].innerHTML = keyboardButtons[j][i = k];
+      buttons[k].innerHTML = keyboardButtons[j][k];
     }
   }
 }
@@ -109,7 +111,7 @@ function showLetters() {
       DelBtn();
     } else if (text === 'Tab') {
       textareaField.value += '\t';
-      // Смена языка на виртальной клавиатуре на Alt
+      // Смена языка на виртуальной клавиатуре на Alt
     } else if (text === 'Alt') {
       if (j === 0) {
         j = 1;
@@ -124,6 +126,7 @@ function showLetters() {
         j = 2;
         fillButtons();
       }
+      localStorage.setItem('key', j);
     } else if (text === 'CapsLock') {
       if (caps) {
         event.target.classList.remove('caps');
@@ -136,6 +139,7 @@ function showLetters() {
           j = 1;
           fillButtons();
         }
+        localStorage.setItem('key', j);
       } else {
         event.target.classList.add('caps');
         caps = true;
@@ -146,6 +150,7 @@ function showLetters() {
           j = 3;
           fillButtons();
         }
+        localStorage.setItem('key', j);
       }
     } else if (text.length === 1) {
       textareaField.value += text;
@@ -204,6 +209,7 @@ window.addEventListener('keydown', (event) => {
       }
     }
   }
+  localStorage.setItem('key', j);
 });
 
 
@@ -240,19 +246,16 @@ window.addEventListener('keydown', (event) => {
     if (j === 0) {
       j = 1;
       fillButtons();
-      // localStorage.setItem('j', 1);
     } else if (j === 1) {
       j = 0;
       fillButtons();
-      // localStorage.setItem('j', 0);
     } else if (j === 2) {
       j = 3;
       fillButtons();
-      // localStorage.setItem('j', 3);
     } else if (j === 3) {
       j = 2;
       fillButtons();
-      // localStorage.setItem('j', 2);
     }
+    localStorage.setItem('key', j);
   }
 });
