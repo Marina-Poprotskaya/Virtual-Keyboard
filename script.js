@@ -100,6 +100,7 @@ function showLetters() {
   keyboardField.addEventListener('click', (event) => {
     if (event.target.tagName !== 'LI') return;
     const text = event.target.innerHTML;
+    // Add functionality for spacial buttons
     if (text === 'Space') {
       (textareaField.value += ' ');
     } else if (text === 'Backspace') {
