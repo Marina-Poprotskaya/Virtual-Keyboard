@@ -259,3 +259,11 @@ window.addEventListener('keydown', (event) => {
     localStorage.setItem('key', lang);
   }
 });
+
+// PreventDefault for Tab on real keyboard + functionality
+window.addEventListener('keydown', (event) => {
+  if (event.code === 'Tab') {
+    event.preventDefault();
+    textareaField.value += '\t';
+  }
+});
