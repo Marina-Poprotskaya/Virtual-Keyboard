@@ -33,7 +33,7 @@ keyboardField.classList.add('keyboard-class');
 let lang = +localStorage.getItem('key') || 0;
 
 function makeKeyboardButtons() {
-  for (let i = 0; i < keyboardButtons[lang].length; i ++) {
+  for (let i = 0; i < keyboardButtons[lang].length; i++) {
     const buttons = document.createElement('li');
 
     buttons.classList.add('btn-class');
@@ -48,8 +48,8 @@ makeKeyboardButtons();
 // Fill buttons with symbols, depending on the selected array from keyboardButtons
 const buttons = document.querySelectorAll('li');
 function fillButtons() {
-  for (let i = 0; i < keyboardButtons[lang].length; i ++) {
-    for (let k = 0; k < buttons.length; k ++) {
+  for (let i = 0; i < keyboardButtons[lang].length; i++) {
+    for (let k = 0; k < buttons.length; k++) {
       buttons[k].innerHTML = keyboardButtons[lang][k];
     }
   }
