@@ -33,7 +33,7 @@ keyboardField.classList.add('keyboard-class');
 let lang = +localStorage.getItem('key') || 0;
 
 function makeKeyboardButtons() {
-  for (let i = 0; i < keyboardButtons[lang].length; i += 1) {
+  for (let i = 0; i < keyboardButtons[lang].length; i ++) {
     const buttons = document.createElement('li');
 
     buttons.classList.add('btn-class');
@@ -48,8 +48,8 @@ makeKeyboardButtons();
 // Fill buttons with symbols, depending on the selected array from keyboardButtons
 const buttons = document.querySelectorAll('li');
 function fillButtons() {
-  for (let i = 0; i < keyboardButtons[lang].length; i += 1) {
-    for (let k = 0; k < buttons.length; k += 1) {
+  for (let i = 0; i < keyboardButtons[lang].length; i ++) {
+    for (let k = 0; k < buttons.length; k ++) {
       buttons[k].innerHTML = keyboardButtons[lang][k];
     }
   }
@@ -101,60 +101,69 @@ function showLetters() {
     if (event.target.tagName !== 'LI') return;
     const text = event.target.innerHTML;
     // Add functionality for spacial buttons
-    if (text === 'Space') {
-      (textareaField.value += ' ');
-    } else if (text === 'Backspace') {
-      textareaField.value = textareaField.value.substr(0, textareaField.value.length - 1);
-    } else if (text === 'Enter') {
-      textareaField.value += '\r\n';
-    } else if (text === 'Del') {
-      DelBtn();
-    } else if (text === 'Tab') {
-      textareaField.value += '\t';
-      // Change the language on the virtual keyboard by Alt
-    } else if (text === 'Alt') {
-      if (lang === 0) {
-        lang = 1;
-        fillButtons();
-      } else if (lang === 1) {
-        lang = 0;
-        fillButtons();
-      } else if (lang === 2) {
-        lang = 3;
-        fillButtons();
-      } else if (lang === 3) {
-        lang = 2;
-        fillButtons();
-      }
-      localStorage.setItem('key', lang);
-    } else if (text === 'CapsLock') {
-      if (caps) {
-        event.target.classList.remove('caps');
-        caps = false;
-        if (lang === 2) {
-          lang = 0;
-          fillButtons();
-        }
-        if (lang === 3) {
-          lang = 1;
-          fillButtons();
-        }
-        localStorage.setItem('key', lang);
-      } else {
-        event.target.classList.add('caps');
-        caps = true;
+    switch (text) {
+      case 'Space':
+        textareaField.value += ' ';
+        break;
+      case 'Backspace':
+        textareaField.value = textareaField.value.substr(0, textareaField.value.length - 1);
+        break;
+      case 'Enter':
+        textareaField.value += '\r\n';
+        break;
+      case 'Del':
+        DelBtn();
+        break;
+      case 'Tab':
+        textareaField.value += '\t';
+        break;
+      // Change the language on the virtual keyboard by Alt 
+      case 'Alt':
         if (lang === 0) {
-          lang = 2;
-          fillButtons();
-        } else if (lang === 1) {
-          lang = 3;
-          fillButtons();
+                lang = 1;
+                fillButtons();
+              } else if (lang === 1) {
+                lang = 0;
+                fillButtons();
+              } else if (lang === 2) {
+                lang = 3;
+                fillButtons();
+              } else if (lang === 3) {
+                lang = 2;
+                fillButtons();
+              }
+              localStorage.setItem('key', lang);
+            break;
+      case 'CapsLock':
+        if (caps) {
+          event.target.classList.remove('caps');
+          caps = false;
+          if (lang === 2) {
+            lang = 0;
+            fillButtons();
+          }
+          else if (lang === 3) {
+            lang = 1;
+            fillButtons();
+          }
+          localStorage.setItem('key', lang);
+        } else {
+          event.target.classList.add('caps');
+          caps = true;
+          if (lang === 0) {
+            lang = 2;
+            fillButtons();
+          } else if (lang === 1) {
+            lang = 3;
+            fillButtons();
+          }
+          localStorage.setItem('key', lang);
         }
-        localStorage.setItem('key', lang);
+      default:  
+         if (text.length === 1) {
+        textareaField.value += text;
       }
-    } else if (text.length === 1) {
-      textareaField.value += text;
-    }
+    };
     textareaField.focus();
   });
 }
@@ -165,10 +174,7 @@ showLetters();
 function showButton() {
   window.addEventListener('keydown', (event) => {
     const li = document.getElementById(event.code);
-    if (li != null) {
-      Array.from(document.getElementsByTagName('li')).forEach((el) => {
-        if (el.classList.contains('press-btn') && el.innerHTML === 'Tab') { el.classList.remove('press-btn'); }
-      });
+    if (li) {
       li.classList.add('press-btn');
     }
   });
@@ -193,7 +199,7 @@ window.addEventListener('keydown', (event) => {
         lang = 0;
         fillButtons();
       }
-      if (lang === 3) {
+      else if (lang === 3) {
         lang = 1;
         fillButtons();
       }
