@@ -180,7 +180,7 @@ function showButton() {
   });
   window.addEventListener('keyup', (event) => {
     const li = document.getElementById(event.code);
-    if (li != null) {
+    if (li) {
       li.classList.remove('press-btn');
     }
   });
