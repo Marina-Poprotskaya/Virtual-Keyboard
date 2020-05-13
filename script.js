@@ -33,7 +33,7 @@ keyboardField.classList.add('keyboard-class');
 let lang = +localStorage.getItem('key') || 0;
 
 function makeKeyboardButtons() {
-  for (let i = 0; i < keyboardButtons[lang].length; i++) {
+  for (let i = 0; i < keyboardButtons[lang].length; i += 1) {
     const buttons = document.createElement('li');
 
     buttons.classList.add('btn-class');
@@ -48,8 +48,8 @@ makeKeyboardButtons();
 // Fill buttons with symbols, depending on the selected array from keyboardButtons
 const buttons = document.querySelectorAll('li');
 function fillButtons() {
-  for (let i = 0; i < keyboardButtons[lang].length; i++) {
-    for (let k = 0; k < buttons.length; k++) {
+  for (let i = 0; i < keyboardButtons[lang].length; i += 1) {
+    for (let k = 0; k < buttons.length; k += 1) {
       buttons[k].innerHTML = keyboardButtons[lang][k];
     }
   }
@@ -93,6 +93,35 @@ function DelBtn() {
   }
 }
 
+textareaField.selectionStart = textareaField.selectionEnd = 10;
+
+function arrowUp() {
+  let pos = textareaField.selectionEnd;
+  const prevLine = textareaField.value.lastIndexOf('\n', pos);
+  const TwoBLine = textareaField.value.lastIndexOf('\n', prevLine - 1);
+  if (prevLine === -1) return;
+  pos -= prevLine;
+  textareaField.selectionStart = textareaField.selectionEnd = TwoBLine + pos;
+}
+
+function arrowDown() {
+  let pos = textareaField.selectionEnd;
+  const prevLine = textareaField.value.lastIndexOf('\n', pos);
+  const nextLine = textareaField.value.indexOf('\n', pos + 1);
+  if (nextLine === -1) return;
+  pos -= prevLine;
+  textareaField.selectionStart = textareaField.selectionEnd = nextLine + pos;
+}
+
+function arrowLeft() {
+  textareaField.selectionStart = textareaField.selectionEnd -= 1;
+}
+
+function arrowRight() {
+  textareaField.selectionStart = textareaField.selectionEnd += 1;
+}
+
+
 // Display letters on the screen
 let caps = false;
 function showLetters() {
@@ -102,11 +131,29 @@ function showLetters() {
     const text = event.target.innerHTML;
     // Add functionality for spacial buttons
     switch (text) {
+      case '↑':
+        arrowUp(textareaField);
+        textareaField.focus();
+        break;
+      case '←':
+        arrowLeft(textareaField);
+        textareaField.focus();
+        break;
+      case '→':
+        arrowRight(textareaField);
+        textareaField.focus();
+        break;
+      case '↓':
+        arrowDown(textareaField);
+        textareaField.focus();
+        break;
       case 'Space':
         textareaField.value += ' ';
         break;
       case 'Backspace':
-        textareaField.value = textareaField.value.substr(0, textareaField.value.length - 1);
+        if (textareaField.selectionStart !== 0) {
+          textareaField.setRangeText('', textareaField.selectionStart - 1, textareaField.selectionEnd, 'end');
+        }
         break;
       case 'Enter':
         textareaField.value += '\r\n';
@@ -117,7 +164,7 @@ function showLetters() {
       case 'Tab':
         textareaField.value += '\t';
         break;
-      // Change the language on the virtual keyboard by Alt 
+      // Change the language on the virtual keyboard by Alt
       case 'Alt':
         if (lang === 0) {
           lang = 1;
@@ -141,8 +188,7 @@ function showLetters() {
           if (lang === 2) {
             lang = 0;
             fillButtons();
-          }
-          else if (lang === 3) {
+          } else if (lang === 3) {
             lang = 1;
             fillButtons();
           }
@@ -159,11 +205,12 @@ function showLetters() {
           }
           localStorage.setItem('key', lang);
         }
+        break;
       default:
         if (text.length === 1) {
-          textareaField.value += text;
+          textareaField.setRangeText(text, textareaField.selectionStart, textareaField.selectionEnd, 'end');
         }
-    };
+    }
     textareaField.focus();
   });
 }
@@ -187,6 +234,7 @@ function showButton() {
 }
 showButton();
 
+
 // Functionality for CapsLock button on a real keyboard
 window.addEventListener('keydown', (event) => {
   const li = document.getElementById(event.code);
@@ -197,8 +245,7 @@ window.addEventListener('keydown', (event) => {
       if (lang === 2) {
         lang = 0;
         fillButtons();
-      }
-      else if (lang === 3) {
+      } else if (lang === 3) {
         lang = 1;
         fillButtons();
       }
